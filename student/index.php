@@ -47,11 +47,18 @@
         
         $query = "INSERT INTO tbl_students(firstname,lastname,gender,course) VALUES ('$firstname','$lastname','$gender','$course')";
         $add = mysqli_query($con,$query);
+    }
+
+    if($method == "DELETE") {
+        $temp = urldecode(file_get_contents('php://input'));
+        parse_str($temp, $value);
+        $id = $value['id'];
+        $query = "DELETE FROM tbl_students WHERE id = '$id'";
+        $deletes = mysqli_query($con,$query);
         $response = [
-            "message" => "Post Successfully added",
+            "message" => "Delete Success",
             "data" => $data
         ];
         echo json_encode($response);
     }
-
 ?>
